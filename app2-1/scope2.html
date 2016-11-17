@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>emit,boradcast</title>
+</head>
+
+<body>
+    <div ng-controller="ParentController" id="pp">
+        parentCount：{{ count }}
+        <div ng-controller="CurentController">
+            <button type="button" ng-click="emit()">emit</button>
+            <button type="button" ng-click="broadcast()">broadcast</button>
+            curentCount：{{ count }}
+            <div ng-controller="ChildController">
+            	childCount：{{ count }}
+            </div>
+        </div>
+        <div ng-controller="BorController">
+            borCount：{{ count }}
+        </div>
+    </div>
+    <script src="js/angular-1.3.0.js"></script>
+    <script src="js/scope2.js"></script>
+    <script type="text/javascript">
+        var scope = angular.element('#pp').scope();
+        console.log(scope);
+    </script>
+</body>
+
+</html>

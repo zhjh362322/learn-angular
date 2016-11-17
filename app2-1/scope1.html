@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>rootscope</title>
+	<script src="js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="GreetController">
+		{{ name }} love {{ department }}
+	</div>
+	<div ng-controller="ListController">
+		<ol>
+			<li ng-repeat="name in names">
+				{{ name }}, love {{ department }}
+			</li>
+		</ol>
+	</div>
+
+
+	<script src="js/scope1.js"></script>
+</body>
+</html>
