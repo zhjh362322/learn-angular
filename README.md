@@ -59,7 +59,7 @@ reids ~
 4. 新功能	 ddddddddd
 </pre>
 
-├── app                         // 应用    
-├── config                      // 配置<br/>
-│ &nbsp;&nbsp;  ├── default.json
+├── app                         // 多空格换行，4个以上空格加回车
+├── config                      // br换行 <br/>
+│ &nbsp;&nbsp;  ├── default.json // 换不了行
 └── tools
