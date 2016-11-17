@@ -1,3 +1,4 @@
+<pre>
 # README.md 简介
 - md：markdown缩写?
 - demo
@@ -23,7 +24,7 @@ reids ~
 
 
 ###########目录结构描述
-├── Readme.md                   // help
+├── Readme.md                   // help    
 ├── app                         // 应用
 ├── config                      // 配置
 │   ├── default.json
@@ -56,3 +57,8 @@ reids ~
 2. 新功能	 bbbbbbbbb
 3. 新功能	 ccccccccc
 4. 新功能	 ddddddddd
+</pre>
+
+├── app                         // 应用    
+├── config                      // 配置<br/>
+│   ├── default.json
