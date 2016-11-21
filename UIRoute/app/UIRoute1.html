@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<!-- 设置默认的访问目录 -->
+	<!-- <base href="/app/"> -->
+	<title>Document</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+	<div ui-view></div>
+	<!-- ur-sref中的值与stateProvider.state(stateName, config)中的stateName对应 -->
+	<a ui-sref="state1">state1</a>
+	<a ui-sref="state2">state2</a>
+
+
+
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="js/uiroute1.js"></script>
+</body>
+</html>

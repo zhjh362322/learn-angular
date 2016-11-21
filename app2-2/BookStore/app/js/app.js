@@ -1,6 +1,6 @@
 (function(angular) {
 	"user strict"
-    var bookStoreApp = angular.module('bookStoreApp', ['ngRoute', 'bookStoreCtrls']);
+    var bookStoreApp = angular.module('bookStoreApp', ['ngRoute', 'ngAnimate', 'bookStoreCtrls']);
 
     bookStoreApp.config(function($routeProvider) {
         $routeProvider.when('/hello', {

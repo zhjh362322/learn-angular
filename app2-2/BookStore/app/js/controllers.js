@@ -4,6 +4,7 @@
 
     bookStoreCtrls.controller('HelloController', function($scope) {
         $scope.love = 'love';
+        $scope.pageclass = "hello";
     });
 
     bookStoreCtrls.controller('BookListController', function($scope) {
@@ -17,5 +18,6 @@
             title: 'angularJS',
             name: 'AngularJS从做项目开始'
         }];
+        $scope.pageclass = "list";
     });
 })(window.angular)
