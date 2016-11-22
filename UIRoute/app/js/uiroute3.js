@@ -19,10 +19,37 @@
 			url: '/mg',
 			views: {
 				'main@index': {
-					templateUrl: 'tpls3/mg.html'
+					templateUrl: 'tpls3/mg.html',
+					controller: function($scope, $state){
+						$scope.addUser = function(){
+							$state.go('index.manage.add');
+						}
+					}
 				}
 			}
-		}).state('index.rights', {
+		}).state('index.manage.add', {
+			url: '/add',
+			templateUrl: 'tpls3/add.html'
+		})
+		.state('index.manage.highusers', {
+			url: '/high',
+			templateUrl: 'tpls3/high.html',
+			controller: function($scope){
+				$scope.highList = [
+					{name: 'baojian', age: 29, show: 'aaaaa'},
+					{name: 'baojian', age: 29, show: 'bbbbb'},
+					{name: 'baojian', age: 29, show: 'ccccc'}
+				]
+			}
+		}).state('index.manage.normalusers', {
+			url: '/normal',
+			template: 'normal'
+		}).state('index.manage.lowerusers', {
+			url: '/lower',
+			template: 'lower'
+		})
+
+		.state('index.rights', {
 			url: '/rts',
 			views: {
 				'main@index': {

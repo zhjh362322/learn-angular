@@ -1,12 +1,15 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="list-group">
-            <a href="" class="list-group-item active">用户分类</a>
-            <a href="" class="list-group-item">高端用户</a>
-            <a href="" class="list-group-item">中端用户</a>
-            <a href="" class="list-group-item">低端用户</a>
-            <a href="" class="list-group-item">黑名单</a>
+            <a ui-sref="index.manage" class="list-group-item active">用户分类</a>
+            <a ui-sref="index.manage.highusers" class="list-group-item">高端用户</a>
+            <a ui-sref="index.manage.normalusers" class="list-group-item">中端用户</a>
+            <a ui-sref="index.manage.lowerusers" class="list-group-item">低端用户</a>
+            <a ui-sref="index.manage" class="list-group-item">黑名单</a>
         </div>
+        <button type="button" class="btn btn-primary" ng-click="addUser()">新增用户</button>
     </div>
-    <div class="col-sm-9">111111</div>
+    <div class="col-sm-9">
+    	<div ui-view></div>
+    </div>
 </div>
