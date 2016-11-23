@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>指令间配合使用,分模块</title>
+	<script src="framework/angular.js"></script>
+	<style type="text/css">
+		.tt {
+			background: black;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div ng-controller="accordionController">
+		<accordion>
+			<expander ng-repeat="exp in expanders" exp-title="{{exp.title}}" exp-exps="exps">
+				{{ exp.text }}
+			</expander>
+		</accordion>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('accordionController', function($scope){
+			$scope.expanders = [{
+				title: 'Click me to expand',
+				text: 'Hi there folks, I am the content that was hidden but is now shown.'
+			}, {
+				title : 'Click this',
+				text : 'I am even better text than you have seen previously'
+			}, {
+				title : 'Test',
+				text : 'test'
+			}];
+			
+		});
+		app.directive('accordion', function(){
+			return {
+				restrict: 'EA',
+				// 提取方法到接口，形成抽象方法
+				controller: function($scope){
+					// 保存ng-repeat形成的指令scope，可以对比不同scope，确定当前操作的scope
+					$scope.exps = [];
+					// 运行指令时，将指令scope保存进父指令
+					this.addAccord = function(scp){
+						$scope.exps.push(scp);
+					};
+					// 除当前点击的scope外，其他的都隐藏
+					this.closeOther = function(curScp){
+						angular.forEach($scope.exps, function(exp){
+							if(curScp != exp){
+								exp.isShow = false;
+							}
+						})
+					}
+				}
+			}
+		});
+		app.directive('expander', function(){
+			return {
+				restrict: 'EA',
+				require: '^accordion',
+				replace: true,
+				transclude: true,
+				// 为每个expander指令建立自己的scope，但是他们有共同的父指令，可以持有要保持的数据，和提取公共方法
+				scope: {
+					title: '@expTitle'
+				},
+				// 模版生成
+				template: '<div>'
+						+ '<div ng-click="accord()" ng-class="{tt:true}">{{title}}</div>'
+						+ '<div ng-show="isShow" ng-transclude></div>'
+						+ '</div>',
+				// 调用接口方法，完成业务逻辑
+				link: function(scope, ele, attr, c){
+					scope.isShow = false;
+					// 让父对象保持每个指令的scope，以便对比
+					c.addAccord(scope);
+					scope.accord = function(){
+						// 显示当前内容
+						scope.isShow = !scope.isShow;
+						// 隐藏其他内容
+						c.closeOther(scope);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

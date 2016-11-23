@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>=指令和ctrl作用域相互作用</title>
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<p>ctrl：<input type="text" ng-model="test"> {{test}}</p>
+		<!-- 配置属性的时候不用{{}} -->
+		<hello test="test"></hello>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('ctrl', function($scope){
+		})
+		app.directive('hello', function(){
+			return {
+				restrict: 'AE',
+				scope: {
+					hl: '=test'
+				},
+				template: 'directive：<input type="text" ng-model="hl">{{hl}}'
+			}
+		})
+	</script>
+</body>
+</html>

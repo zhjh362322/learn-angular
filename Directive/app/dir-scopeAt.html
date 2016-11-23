@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>@继承父ctrl的作用域</title>
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<!-- 文本去controller中的值 -->
+		<hello love='{{love}}'></hello>
+	</div>
+	<script type="text/javascript">
+		angular.module('app', [])
+		.controller('ctrl', function($scope){
+			$scope.love = 'nana';
+		})
+		.directive('hello', function(){
+			return {
+				restrict: 'AE',
+				scope: {
+					// 将取到的值放到lv中，$scope.lv = ...
+					lv: '@love'
+				},
+				template: '{{lv}}',
+				link: function(scope){
+					console.log(scope.lv)
+				}
+			}
+		})
+	</script>
+</body>
+</html>

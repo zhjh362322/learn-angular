@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>指令和控制器交互</title>
+	<link rel="stylesheet" href="framework/bootstrap.css">
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl1">
+		<button drtv howLoad="ct()" class="btn btn-primary">ct1</button>
+	</div>
+	<div ng-controller="ctrl2">
+		<button drtv howLoad="ct2()" class="btn btn-primary">ct2</button>
+	</div>
+	<script type="text/javascript">
+		angular.module('app',[])
+			.controller('ctrl1', function($scope){
+				$scope.ct = function(){
+					console.log('ct1读取中...');
+				};
+			})
+			.controller('ctrl2', function($scope){
+				$scope.ct2 = function(){
+					console.log('ct2读取中...');
+				};
+			})
+			.directive('drtv', function(){
+				return {
+					restrict: 'AE',
+					link: function(scope, ele, attr){
+						ele.bind('mouseenter', function(){
+							// 同一指令调用控制器中的不同方法,$apply相对于eval
+							// 配置项中的howload要全小写，可以查看attr对象
+							var f = attr.howload;
+							scope.$apply(f)
+						});
+					}
+				}
+			})
+	</script>
+</body>
+</html>

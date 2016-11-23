@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>&指令在包含独立作用域时调用ctrl上的方法</title>
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<hello greet="show(name)"></hello>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('ctrl', function($scope){
+			$scope.show = function(name){
+				console.log(name);
+			};
+		});
+		app.directive('hello', function(){
+			return {
+				restrict: 'AE',
+				scope: {
+					show: '&greet'
+				},
+				link: function(scope){
+					// 传参数要传对象
+					scope.show({name:111});
+				}
+			}
+		})
+	</script>
+</body>
+</html>

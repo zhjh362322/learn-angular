@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>显示隐藏</title>
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	
+	<div ng-controller="ctrl">
+		<expander>
+			{{content.body}}
+		</expander>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('ctrl', function($scope){
+			$scope.content = {
+				title: '点击展开',
+				body: '这里是内部的内容。'
+			};
+		});
+		app.directive('expander', function(){
+			return {
+				restrict: 'E',
+				replace: true,
+				transclude: true,
+				template: '<div>\
+							<div ng-click="toggle()">点击展开</div>\
+							<div ng-show="exp"><span ng-transclude></span></div>\
+						   </div>',
+				link: function(scope, ele, attr){
+					scope.toggle = function(){
+						scope.exp = !scope.exp;
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

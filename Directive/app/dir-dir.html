@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>指令和指令交互</title>
+
+	<link rel="stylesheet" href="framework/bootstrap.css">
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<div>
+		<superman speed>superman --- speed</superman>
+	</div>
+	<div>
+		<superman pwoer speed>superman --- pwoer speed</superman>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('app', [])
+			app.directive('superman', function(){
+				return {
+					scope: {},
+					restrict: 'AE',
+					controller: function($scope){
+						$scope.ability = [];
+						// controller对外发布一些接口，link对内处理事务
+						this.addpower = function(){
+							$scope.ability.push('power');
+						};
+						this.addspeed = function(){
+							$scope.ability.push('speed');
+						};
+						this.addlight = function(){
+							$scope.ability.push('light');
+						};
+					},
+					link: function(scope, ele, attr){
+						ele.addClass('btn btn-primary');
+						ele.bind('click', function(event) {
+							console.log(scope.ability)
+						});
+					}
+				}
+			})
+			app.directive('speed', function(){
+				return {
+					restrict: 'AE',
+					require: '^superman',
+					link: function(scope, ele, attr, c){
+						c.addspeed();
+					}
+				}
+			})
+			app.directive('pwoer', function(){
+				return {
+					restrict: 'AE',
+					require: '^superman',
+					link: function(scope, ele, attr, c){
+						c.addpower();
+					}
+				}
+			})
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>templateCache</title>
+	<script src="framework/angular.js"></script>
+</head>
+<body>
+	<hello></hello>
+
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+
+		// run方法只运行一次,$templateCache.put存值
+		app.run(function($templateCache){
+			$templateCache.put('hello', 'tpls/tplsUrl.html');
+			$templateCache.put('who', 'nana');
+		})
+
+		// $templateCache.get取值
+		app.directive('hello', function($templateCache){
+			return {
+				restrict: 'E',
+				templateUrl: $templateCache.get('hello'),
+				controller: function($scope){
+					$scope.love = $templateCache.get('who');
+				},
+				link: function(scope){
+					console.log(scope.love);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

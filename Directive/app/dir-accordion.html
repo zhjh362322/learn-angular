@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>指令间配合使用,强耦合,没分模块的样子</title>
+	<script src="framework/angular.js"></script>
+	<style type="text/css">
+		.tt {
+			background: black;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div ng-controller="accordionController">
+		<accordion>
+			<expander ng-repeat="exp in expanders" exp-title="{{exp.title}}" exp-exps="exps">
+				{{ exp.text }}
+			</expander>
+		</accordion>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('accordionController', function($scope){
+			$scope.expanders = [{
+				title: 'Click me to expand',
+				text: 'Hi there folks, I am the content that was hidden but is now shown.'
+			}, {
+				title : 'Click this',
+				text : 'I am even better text than you have seen previously'
+			}, {
+				title : 'Test',
+				text : 'test'
+			}];
+			$scope.exps = [];
+		});
+		app.directive('expander', function(){
+			return {
+				restrict: 'EA',
+				scope: {
+					title: '@expTitle',
+					exps: '=expExps'
+				},
+				replace: true,
+				transclude: true,
+				template: '<div>'
+						+ '<div ng-click="accord()" ng-class="{tt:true}">{{title}}</div>'
+						+ '<div ng-show="isShow" ng-transclude></div>'
+						+ '</div>',
+				link: function(scope, ele, attr){
+					scope.exps.push(scope);
+					scope.isShow = false;
+					scope.accord = function(){
+						scope.isShow = !scope.isShow;
+						angular.forEach(scope.exps, function(exp){
+							if(exp != scope){
+								exp.isShow = false;
+							}
+						})
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
